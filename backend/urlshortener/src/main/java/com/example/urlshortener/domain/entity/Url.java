@@ -22,7 +22,6 @@ public class Url {
 
     private String shortUrl;
 
-    @CreatedDate
     private LocalDateTime createdAt;
 
     private LocalDateTime expiresAt;
