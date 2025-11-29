@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 @RestController
+@CrossOrigin("*")
 @RequiredArgsConstructor
 @RequestMapping("/api/urls")
 public class UrlController {
@@ -38,12 +39,11 @@ public class UrlController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
-
     }
 
-
     @GetMapping("{shortLink}")
-    public ResponseEntity<?> redirectToOriginalUrl(@PathVariable String shortLink,HttpServletResponse response) throws IOException {
+    public ResponseEntity<?> redirectToOriginalUrl(@PathVariable String shortLink, HttpServletResponse response)
+            throws IOException {
         if (StringUtils.isEmpty(shortLink)) {
             UrlErrorResponseDto urlErrorResponseDto = new UrlErrorResponseDto();
 
@@ -64,7 +64,7 @@ public class UrlController {
 
         }
 
-        if(urlToReturn.getExpiresAt().isBefore(LocalDateTime.now())){
+        if (urlToReturn.getExpiresAt().isBefore(LocalDateTime.now())) {
             urlService.deleteShortLink(urlToReturn);
             UrlErrorResponseDto urlErrorResponseDto = new UrlErrorResponseDto();
 
